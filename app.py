@@ -43,6 +43,11 @@ def api_videos():
     update_videos_json_and_wait()
     return jsonify(load_videos())
 
+@app.route('/robots.txt') ## 로봇 접근을하게 합니다. 
+def robots_txt():
+    return app.send_static_file('robots.txt')
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001, debug=True)
 
