@@ -66,9 +66,8 @@ url = f'https://www.youtube.com/{handle}'
 resp = requests.get(url, allow_redirects=True)
 print(resp.url)
 
-API_KEY = 'AIzaSyC_e8oQen1d3QXBEH-q29EaaWirF997wKA'
-CHANNEL_ID = 'UCdhQfBQJYAZ3CGqEj0BGksQ'
-MAX_RESULTS = 4
+
+MAX_RESULTS = 50
 
 def fetch_shorts():
     url = (
