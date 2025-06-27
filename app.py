@@ -1,23 +1,29 @@
 import os
-import subprocess
 import sys
+import subprocess
 import time
-from flask import Flask, render_template, jsonify
 import json
-import requests
+from flask import Flask, render_template, jsonify
 from dotenv import load_dotenv
-load_dotenv()
 
-import os
-API_KEY = os.getenv('API_KEY')
-CHANNEL_ID = os.getenv('CHANNEL_ID')
+# 로컬 개발 시 .env 파일 로딩
+load_dotenv()
 
 app = Flask(__name__)
 
+# 환경변수에서 API 키와 채널 ID 불러오기
+API_KEY = os.getenv('API_KEY')
+CHANNEL_ID = os.getenv('CHANNEL_ID')
+MAX_RESULTS = 4
+
+# 영상 정보 업데이트 함수 (외부 Python 파일 실행)
 def update_videos_json_and_wait():
-    # youtube_fetcher.py 실행
-    subprocess.run([sys.executable, 'youtube_fetcher.py'])
-    # 최대 10초(0.5초 간격) 동안 videos.json이 비어있지 않을 때까지 대기
+    try:
+        subprocess.run([sys.executable, 'youtube_fetcher.py'], check=True)
+    except Exception as e:
+        print("youtube_fetcher 실행 중 오류:", e)
+
+    # 최대 10초간 videos.json 업데이트 대기
     for _ in range(20):
         if os.path.exists('videos.json'):
             try:
@@ -29,72 +35,40 @@ def update_videos_json_and_wait():
                 pass
         time.sleep(0.5)
 
+# 영상 정보 로딩
 def load_videos():
-    if not os.path.exists('videos.json'):
-        return []
     try:
+        if not os.path.exists('videos.json'):
+            return []
         with open('videos.json', encoding='utf-8') as f:
             return json.load(f)
-    except Exception:
+    except Exception as e:
+        print("videos.json 로딩 중 오류:", e)
         return []
 
+# 메인 페이지
 @app.route('/')
 def index():
     update_videos_json_and_wait()
     videos = load_videos()
     return render_template('index.html', videos=videos)
 
+# API 엔드포인트
 @app.route('/api/videos')
 def api_videos():
     update_videos_json_and_wait()
     return jsonify(load_videos())
 
-@app.route('/robots.txt') ## 로봇 접근을하게 합니다. 구글 검색에 용의 하도록..
+# robots.txt 서빙
+@app.route('/robots.txt')
 def robots_txt():
     return app.send_static_file('robots.txt')
 
-@app.route('/sitemap.xml') ## 사이트맵 작성, 구글 검색에 용의 하도록..
+# sitemap.xml 서빙
+@app.route('/sitemap.xml')
 def sitemap_xml():
     return app.send_static_file('sitemap.xml')
 
-
+# 앱 실행
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001, debug=True)
-
-handle = '@1분코인연구소'
-url = f'https://www.youtube.com/{handle}'
-resp = requests.get(url, allow_redirects=True)
-print(resp.url)
-
-
-MAX_RESULTS = 50
-
-def fetch_shorts():
-    url = (
-        f'https://www.googleapis.com/youtube/v3/search'
-        f'?key={API_KEY}'
-        f'&channelId={CHANNEL_ID}'
-        f'&part=snippet'
-        f'&maxResults={MAX_RESULTS}'
-        f'&order=date'
-        f'&type=video'
-    )
-    resp = requests.get(url)
-    print("API 응답 상태코드:", resp.status_code)
-    print("API 응답 내용:", resp.text)
-    data = resp.json()
-    videos = []
-    for item in data.get('items', []):
-        video_id = item['id']['videoId']
-        title = item['snippet']['title']
-        thumbnail = item['snippet']['thumbnails']['high']['url']
-        videos.append({
-            'video_id': video_id,
-            'title': title,
-            'thumbnail': thumbnail
-        })
-    with open('videos.json', 'w', encoding='utf-8') as f:
-        json.dump(videos, f, ensure_ascii=False, indent=2)
-
-if __name__ == '__main__':
-    fetch_shorts() 
