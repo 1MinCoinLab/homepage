@@ -4,7 +4,7 @@ import re
 
 #API_KEY = 
 #CHANNEL_ID = 
-MAX_RESULTS = 20  # 20~50까지 가능
+MAX_RESULTS = 50  # 20~50까지 가능
 
 YOUTUBE_SEARCH_URL = 'https://www.googleapis.com/youtube/v3/search'
 YOUTUBE_VIDEOS_URL = 'https://www.googleapis.com/youtube/v3/videos'
