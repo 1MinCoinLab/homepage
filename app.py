@@ -43,9 +43,13 @@ def api_videos():
     update_videos_json_and_wait()
     return jsonify(load_videos())
 
-@app.route('/robots.txt') ## 로봇 접근을하게 합니다. 
+@app.route('/robots.txt') ## 로봇 접근을하게 합니다. 구글 검색에 용의 하도록..
 def robots_txt():
     return app.send_static_file('robots.txt')
+
+@app.route('/sitemap.xml') ## 사이트맵 작성, 구글 검색에 용의 하도록..
+def sitemap_xml():
+    return app.send_static_file('sitemap.xml')
 
 
 if __name__ == '__main__':
