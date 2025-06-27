@@ -2,8 +2,8 @@ import requests
 import json
 import re
 
-API_KEY = 'AIzaSyC_e8oQen1d3QXBEH-q29EaaWirF997wKA'
-CHANNEL_ID = 'UCdhQfBQJYAZ3CGqEj0BGksQ'
+#API_KEY = 
+#CHANNEL_ID = 
 MAX_RESULTS = 20  # 20~50까지 가능
 
 YOUTUBE_SEARCH_URL = 'https://www.googleapis.com/youtube/v3/search'
