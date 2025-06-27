@@ -9,8 +9,9 @@ from dotenv import load_dotenv
 # .env 또는 Render 환경변수 로드
 load_dotenv()
 
-API_KEY = os.getenv("API_KEY")
-CHANNEL_ID = os.getenv("CHANNEL_ID")
+API_KEY = os.getenv("API_KEY", "").strip("'\"")
+CHANNEL_ID = os.getenv("CHANNEL_ID", "").strip("'\"")
+
 MAX_RESULTS = 50
 
 YOUTUBE_SEARCH_URL = 'https://www.googleapis.com/youtube/v3/search'
