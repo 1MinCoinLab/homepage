@@ -1,1 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://onemincoinlab.onrender.com/sitemap.xml
 
