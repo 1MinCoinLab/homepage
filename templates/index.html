@@ -96,6 +96,18 @@
             height: 24px;
             fill: var(--mint-dark);
         }
+        .visit-counter {
+            position: absolute;
+            top: 12px;
+            right: 20px;
+            font-size: 0.94rem;
+            color: #fff;
+            opacity: 0.9;
+            background: rgba(0, 0, 0, 0.1);
+            padding: 4px 10px;
+            border-radius: 16px;
+        }
+
         main {
             flex: 1;
             display: flex;
@@ -301,6 +313,9 @@
 </head>
 <body>
     <header>
+         <div class="visit-counter">
+            오늘 방문자: {{ today_visits }}명
+        </div>
         <nav class="nav">
             <button class="nav-btn active" onclick="location.href='/'">코인분석 영상보기</button>
             <button class="nav-btn" onclick="location.href='/community'">소통하기(추후제공)</button>
