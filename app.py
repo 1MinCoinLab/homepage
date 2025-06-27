@@ -14,7 +14,7 @@ app = Flask(__name__)
 # 환경변수에서 API 키와 채널 ID 불러오기
 API_KEY = os.getenv('API_KEY')
 CHANNEL_ID = os.getenv('CHANNEL_ID')
-MAX_RESULTS = 4
+MAX_RESULTS = 50
 
 # 영상 정보 업데이트 함수 (외부 Python 파일 실행)
 def update_videos_json_and_wait():
