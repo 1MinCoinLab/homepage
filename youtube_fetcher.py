@@ -1,3 +1,5 @@
+#Fix: 안정적인 YouTube fetcher 코드 반영
+
 import requests
 import json
 import re
