@@ -47,13 +47,14 @@ def load_videos():
         print("videos.json 로딩 중 오류:", e)
         return []
 
-# 메인 페이지
+'''# 메인 페이지
 @app.route('/')
 def index():
     update_videos_json_and_wait()
     videos = load_videos()
     return render_template('index.html', videos=videos)
-    
+'''
+
 #방문자 카운트.
 @app.route('/')
 def index():
