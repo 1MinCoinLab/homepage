@@ -5,6 +5,12 @@ import time
 from flask import Flask, render_template, jsonify
 import json
 import requests
+from dotenv import load_dotenv
+load_dotenv()
+
+import os
+API_KEY = os.getenv('API_KEY')
+CHANNEL_ID = os.getenv('CHANNEL_ID')
 
 app = Flask(__name__)
 
