@@ -1,9 +1,15 @@
 import requests
 import json
 import re
+import os
+from dotenv import load_dotenv
 
-#API_KEY = 
-#CHANNEL_ID = 
+# .env 파일 또는 Render 환경변수 로드
+load_dotenv()
+
+API_KEY = os.getenv("API_KEY")
+CHANNEL_ID = os.getenv("CHANNEL_ID")
+
 MAX_RESULTS = 50  # 20~50까지 가능
 
 YOUTUBE_SEARCH_URL = 'https://www.googleapis.com/youtube/v3/search'
