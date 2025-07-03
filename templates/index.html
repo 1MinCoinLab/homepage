@@ -11,19 +11,20 @@
     <meta name="google-site-verification" content="ud4-KqdV-GXBzQBaBdF_7qQYl4czDf1rWXN3rz0iOJY" />
         
     <style>
-        .funb-search-container {
-            width: 100%;
-            max-width: 600px;
+            .funb-search-wrapper {
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
             margin-top: -10px;
             margin-bottom: 12px;
         }
-        .funb-search-container input {
-            padding: 6px 12px;
-            border-radius: 20px;
-            border: 1px solid #ccc;
-            margin-left: 6px;
+        .funb-search-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            max-width: 600px;
+            width: 100%;
         }
         .funb-search-container button {
             background-color: var(--mint-dark);
@@ -367,12 +368,14 @@
         <div class="popular-section">
             <div class="popular-label">현재 가장 인기 영상</div>
                 <!-- ✅ 추가: 검색창 오른쪽 정렬 -->
-            <div class="funb-search-container">
-                <label for="funb-search">🔍 현재 펀비 검색:</label>
-                <input type="text" id="funb-search" placeholder="예: BTC, ETH, HFT">
-                <button onclick="searchFunb()">검색</button>
+            <div class="funb-search-wrapper">
+                <div class="funb-search-container">
+                    <label for="funb-search">🔍 현재 펀비 검색:</label>
+                    <input type="text" id="funb-search" placeholder="예: BTC, ETH, HFT">
+                    <button onclick="searchFunb()">검색</button>
+                </div>
             </div>
-        <div id="funb-result"></div>
+            <div id="funb-result"></div>
             <div class="popular-card" onclick="openModal('{{ videos[0].video_id }}')">
                 <img src="{{ videos[0].thumbnail }}" alt="{{ videos[0].title }}">
                 <div class="popular-title">{{ videos[0].title }}</div>
