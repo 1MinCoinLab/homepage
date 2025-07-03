@@ -15,12 +15,41 @@
       --bg: #f8fafd;
       --text: #222;
     }
-    body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: 'Pretendard', 'Noto Sans KR', Arial, sans-serif; }
-    .popular-section { text-align: center; margin-top: 40px; }
-    .popular-label { font-size: 1.2rem; font-weight: bold; color: var(--mint-dark); }
-    #funb-search-section { margin-top: 16px; text-align: center; }
-    #funb-result { margin-top: 10px; font-size: 1rem; color: #222; }
-    .search-btn { background-color: var(--mint-dark); color: white; border: none; padding: 6px 12px; border-radius: 20px; cursor: pointer; }
+    #funb-search-section {
+      margin: 12px auto;
+      text-align: center;
+    }
+    #funb-search-section input {
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      width: 160px;
+    }
+    #funb-search-section button {
+      background-color: var(--mint-dark);
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 20px;
+      margin-left: 4px;
+      cursor: pointer;
+    }
+    #funb-result table {
+      width: 90%;
+      max-width: 600px;
+      margin: 16px auto;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+    #funb-result th, #funb-result td {
+      padding: 8px 10px;
+      text-align: center;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    #funb-result th {
+      background-color: #2bb3a3;
+      color: white;
+    }
   </style>
   <script src="https://apis.google.com/js/platform.js"></script>
 </head>
@@ -31,28 +60,89 @@
   <main>
     <div class="popular-section">
       <div class="popular-label">현재 가장 인기 영상</div>
+
+      <!-- 🔍 현재 펀비 검색 추가 영역 -->
       <div id="funb-search-section">
         <label for="funb-search">🔍 현재 펀비 검색:</label>
-        <input type="text" id="funb-search" placeholder="예: HFT, BTC" style="padding: 6px 12px; border-radius: 20px; border: 1px solid #ccc; width: 160px;" />
-        <button onclick="searchFunb()" class="search-btn">검색</button>
+        <input type="text" id="funb-search" placeholder="예: HFT" />
+        <button onclick="searchMultiExchanges()">검색</button>
         <div id="funb-result"></div>
       </div>
+
+      {% if videos|length > 0 %}
+      <div class="popular-card" onclick="openModal('{{ videos[0].video_id }}')">
+        <img src="{{ videos[0].thumbnail }}" alt="{{ videos[0].title }}">
+        <div class="popular-title">{{ videos[0].title }}</div>
+        {% if videos[0].tags %}
+        <div class="popular-tags">
+          {% for tag in videos[0].tags %}
+          <span class="popular-tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <div class="popular-views">조회수: {{ videos[0].view_count | default(0) }}</div>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="video-grid" id="videoGrid">
+      {% for video in videos[1:] %}
+      <div class="video" data-title="{{ video.title }}" onclick="openModal('{{ video.video_id }}')">
+        <img src="{{ video.thumbnail }}" alt="{{ video.title }}">
+        <div class="video-title">{{ video.title }}</div>
+        {% if video.tags %}
+        <div class="video-tags">
+          {% for tag in video.tags %}
+          <span class="tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
     </div>
   </main>
-  <script>
-    async function searchFunb() {
-      const coin = document.getElementById('funb-search').value.trim().toUpperCase();
-      const symbol = coin + 'USDT';
-      const resultEl = document.getElementById('funb-result');
 
-      try {
-        const res = await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`);
-        if (!res.ok) throw new Error("코인 없음");
-        const data = await res.json();
-        resultEl.innerText = `${coin} 현재 가격: ${parseFloat(data.price).toFixed(4)} USDT`;
-      } catch (err) {
-        resultEl.innerText = '해당 코인을 찾을 수 없습니다.';
+  <script>
+    async function searchMultiExchanges() {
+      const coin = document.getElementById('funb-search').value.trim().toUpperCase();
+      const usdtPair = coin + 'USDT';
+      const exchanges = {
+        '바이낸스': `https://api.binance.com/api/v3/ticker/price?symbol=${usdtPair}`,
+        '바이비트': `https://api.bybit.com/v2/public/tickers?symbol=${usdtPair}`,
+        'OKX': '',
+        'MEXC': '',
+        '비트겟': ''
+      };
+
+      let html = '<table><tr><th>코인</th>' + Object.keys(exchanges).map(e => `<th>${e}</th>`).join('') + '</tr>';
+      html += `<tr><td>${coin}</td>`;
+
+      for (const [name, url] of Object.entries(exchanges)) {
+        try {
+          if (!url) {
+            html += '<td>-</td>';
+            continue;
+          }
+          const res = await fetch(url);
+          const data = await res.json();
+          let price = null;
+
+          if (name === '바이낸스') {
+            price = parseFloat(data.price).toFixed(4);
+          } else if (name === '바이비트' && data.result && data.result.length > 0) {
+            price = parseFloat(data.result[0].last_price).toFixed(4);
+          } else {
+            price = '-';
+          }
+
+          html += `<td>${price}</td>`;
+        } catch (err) {
+          html += '<td>오류</td>';
+        }
       }
+
+      html += '</tr></table>';
+      document.getElementById('funb-result').innerHTML = html;
     }
   </script>
 </body>
