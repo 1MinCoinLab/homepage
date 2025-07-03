@@ -308,26 +308,8 @@
             font-size: 0.93rem;
             opacity: 0.8;
         }
-        
     </style>
-    <script src="https://apis.google.com/js/platform.js">
-      async function searchFunb() {
-            const coin = document.getElementById('funb-search').value.trim().toUpperCase();
-            const symbol = coin + 'USDT';
-            const resultEl = document.getElementById('funb-result');
-    
-            try {
-                const res = await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`);
-                if (!res.ok) throw new Error("코인 없음");
-                const data = await res.json();
-                resultEl.innerText = `${coin} 현재 가격: ${parseFloat(data.price).toFixed(4)} USDT`;
-            } catch (err) {
-                resultEl.innerText = '해당 코인을 찾을 수 없습니다.';
-            }
-        }
-
-
-    </script>
+    <script src="https://apis.google.com/js/platform.js"></script>
 </head>
 <body>
     <header>
@@ -353,17 +335,6 @@
         {% if videos|length > 0 %}
         <div class="popular-section">
             <div class="popular-label">현재 가장 인기 영상</div>
-            <!-- 현재 펀비 검색 -->
-            <div style="margin-top: 20px; text-align: center;">
-                <label for="funb-search" style="font-weight: bold; font-size: 1rem;">🔍 현재 펀비 검색:</label>
-                <input type="text" id="funb-search" placeholder="예: HFT, BTC" 
-                       style="padding: 6px 12px; border-radius: 20px; border: 1px solid #ccc; width: 160px; margin-left: 6px;" />
-                <button onclick="searchFunb()" 
-                        style="background-color: var(--mint-dark); color: white; border: none; padding: 6px 12px; border-radius: 20px; margin-left: 4px; cursor: pointer;">
-                    검색
-                </button>
-                <div id="funb-result" style="margin-top: 10px; font-size: 0.95rem; color: #222;"></div>
-            </div>
             <div class="popular-card" onclick="openModal('{{ videos[0].video_id }}')">
                 <img src="{{ videos[0].thumbnail }}" alt="{{ videos[0].title }}">
                 <div class="popular-title">{{ videos[0].title }}</div>
