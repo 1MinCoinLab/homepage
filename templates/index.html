@@ -335,6 +335,13 @@
         {% if videos|length > 0 %}
         <div class="popular-section">
             <div class="popular-label">현재 가장 인기 영상</div>
+                <!-- ✅ 추가: 검색창 오른쪽 정렬 -->
+            <div class="funb-search-container">
+                <label for="funb-search">🔍 현재 펀비 검색:</label>
+                <input type="text" id="funb-search" placeholder="예: BTC, ETH, HFT">
+                <button onclick="searchFunb()">검색</button>
+            </div>
+        <div id="funb-result"></div>
             <div class="popular-card" onclick="openModal('{{ videos[0].video_id }}')">
                 <img src="{{ videos[0].thumbnail }}" alt="{{ videos[0].title }}">
                 <div class="popular-title">{{ videos[0].title }}</div>
@@ -400,6 +407,23 @@
         function closeModal() {
             document.getElementById('ytplayer').src = '';
             document.getElementById('modal').classList.remove('active');
+        }
+        function searchFunb() {
+            const coin = document.getElementById('funb-search').value.trim().toUpperCase();
+            const symbol = coin + 'USDT';
+            const resultEl = document.getElementById('funb-result');
+    
+            fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`)
+                .then(res => {
+                    if (!res.ok) throw new Error();
+                    return res.json();
+                })
+                .then(data => {
+                    resultEl.innerText = `${coin} 현재 가격: ${parseFloat(data.price).toFixed(4)} USDT`;
+                })
+                .catch(() => {
+                    resultEl.innerText = '해당 코인을 찾을 수 없습니다.';
+                });
         }
     </script>
 </body>
