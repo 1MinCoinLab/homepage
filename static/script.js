@@ -33,4 +33,22 @@
                 resultEl.innerText = '해당 코인을 찾을 수 없습니다.';
             });
     }
+    async function loadCoinPrices() {
+        const coins = ['BTC', 'ETH', 'FANC'];
+        for (const coin of coins) {
+            try {
+                const res = await fetch(`https://api.bithumb.com/public/ticker/${coin}_KRW`);
+                const data = await res.json();
+                if (data.status === '0000') {
+                    document.getElementById(`price-${coin.toLowerCase()}`).innerText =
+                        parseInt(data.data.closing_price).toLocaleString();
+                }
+            } catch (e) {
+                document.getElementById(`price-${coin.toLowerCase()}`).innerText = '불러오기 실패';
+            }
+        }
+    }
+    
+    window.onload = loadCoinPrices;
+
 </script>
