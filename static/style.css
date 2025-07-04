@@ -11,17 +11,33 @@ header {
   text-align: center;
 }
 .video-search-wrapper {
-  text-align: center;
-  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0;
 }
 #video-search {
-  width: 80%;
-  max-width: 400px;
   padding: 8px 16px;
   border-radius: 20px;
   border: 1px solid #ccc;
   font-size: 1rem;
+  width: 240px;
 }
+#video-search-btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: #2bb3a3;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+#video-search-results {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
 
 .funb-search-wrapper {
   display: flex;
