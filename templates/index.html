@@ -32,28 +32,42 @@
             </button>
         </div>
     </header>
+    
     <main>
         {% if videos|length > 0 %}
-        <div class="popular-section">
+        <div class="top-wrapper">
+          <!-- 왼쪽: 인기 영상 -->
+          <div class="popular-left">
             <div class="popular-label">현재 가장 인기 영상</div>
-                <!-- ✅ 추가: 검색창 오른쪽 정렬 -->
-            <div class="funb-search-wrapper">
-                <div class="funb-search-container">
-                    <label for="funb-search">🔍 현재 펀비 검색:</label>
-                    <input type="text" id="funb-search" placeholder="예: BTC, ETH, HFT">
-                    <button onclick="searchFunb()">검색</button>
-                </div>
-            </div>
-            <div id="funb-result"></div>
             <div class="popular-card" onclick="openModal('{{ videos[0].video_id }}')">
-                <img src="{{ videos[0].thumbnail }}" alt="{{ videos[0].title }}">
-                <div class="popular-title">{{ videos[0].title }}</div>
-                {% if videos[0].tags %}
-                <div class="popular-tags">
-                    {% for tag in videos[0].tags %}
-                    <span class="popular-tag">{{ tag }}</span>
-                    {% endfor %}
-                </div>
+              <img src="{{ videos[0].thumbnail }}" alt="{{ videos[0].title }}">
+              <div class="popular-title">{{ videos[0].title }}</div>
+              {% if videos[0].tags %}
+              <div class="popular-tags">
+                  {% for tag in videos[0].tags %}
+                  <span class="popular-tag">{{ tag }}</span>
+                  {% endfor %}
+              </div>
+              {% endif %}
+              <div class="popular-views">조회수: {{ videos[0].view_count | default(0) }}</div>
+            </div>
+          </div>
+        
+          <!-- 오른쪽: 코인 가격 -->
+          <div class="coin-box">
+            <h3>🔥 실시간 코인 시세 (KRW)</h3>
+            <div class="coin-card">
+              <strong>BTC:</strong> <span id="price-btc">-</span> 원
+            </div>
+            <div class="coin-card">
+              <strong>ETH:</strong> <span id="price-eth">-</span> 원
+            </div>
+            <div class="coin-card">
+              <strong>FANC:</strong> <span id="price-fanc">-</span> 원
+            </div>
+          </div>
+        </div>
+
                 {% endif %}
                 <div class="popular-views">조회수: {{ videos[0].view_count | default(0) }}</div>
             </div>
@@ -79,6 +93,11 @@
             <a class="subscribe-direct" href="https://www.youtube.com/channel/UCdhQfBQJYAZ3CGqEj0BGksQ?sub_confirmation=1" target="_blank" rel="noopener">구독하기</a>
         </div>
     </main>
+
+
+
+
+    
     <div id="modal" class="modal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <iframe id="ytplayer" src="" frameborder="0" allowfullscreen></iframe>
