@@ -1,111 +1,49 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>1분 코인 연구소 - 유튜브 쇼츠 모음</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="코인 기술 분석과 유튜브 쇼츠 영상을 한 곳에! 매일 최신 코인 동향을 1분 안에 파악하세요.">
-    <meta name="keywords" content="1분 코인 연구소, 코인 쇼츠, 유튜브 쇼츠, 코인 분석, 가상화폐, 코인 트렌드, 비트코인, 이더리움, XRP, 솔라나, 도지코인, 아발란체, 폴리곤, 팬시코인, 카이아, 세이, 오브스, 리플, 웹3, 디파이, NFT, 블록체인">
-    <meta name="author" content="1분 코인 연구소">
-    <!-- 아래 메타태그 추가 -->
-    <meta name="google-site-verification" content="ud4-KqdV-GXBzQBaBdF_7qQYl4czDf1rWXN3rz0iOJY" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">    
-    <script src="https://apis.google.com/js/platform.js"></script>
-</head>
-<body>
-    <header>
-         <div class="visit-counter">
-            오늘 방문자: {{ today_visits }}명
-        </div>
-        <nav class="nav">
-            <button class="nav-btn active" onclick="location.href='/'">코인분석 영상보기</button>
-           
-        </nav>
-        <div class="logo">1분 코인 연구소</div>
-        <div class="subtitle">1minCoinLab - 쉽고 빠른 코인 정보, 유튜브 공식 채널</div>
-        <div class="search-box">
-            <input class="search-input" id="searchInput" type="text" placeholder="영상 검색..." oninput="filterVideos()">
-            <button class="search-btn" onclick="document.getElementById('searchInput').focus()" aria-label="검색">
-                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" stroke="#2bb3a3" stroke-width="2" fill="none"/><line x1="16.5" y1="16.5" x2="21" y2="21" stroke="#2bb3a3" stroke-width="2" stroke-linecap="round"/></svg>
-            </button>
-        </div>
-    </header>
-    
-    <main>
-        {% if videos|length > 0 %}
-        <div class="top-wrapper">
-          <!-- 왼쪽: 인기 영상 -->
-          <div class="popular-left">
-            <div class="popular-label">현재 가장 인기 영상</div>
-            <div class="popular-card" onclick="openModal('{{ videos[0].video_id }}')">
-              <img src="{{ videos[0].thumbnail }}" alt="{{ videos[0].title }}">
-              <div class="popular-title">{{ videos[0].title }}</div>
-              {% if videos[0].tags %}
-              <div class="popular-tags">
-                  {% for tag in videos[0].tags %}
-                  <span class="popular-tag">{{ tag }}</span>
-                  {% endfor %}
-              </div>
-              {% endif %}
-              <div class="popular-views">조회수: {{ videos[0].view_count | default(0) }}</div>
-            </div>
-          </div>
-        
-        <!-- 오른쪽: 코인 가격 -->
-        <div class="coin-box">
-          <h3>🔥 실시간 코인 시세 (KRW / USDT)</h3>
-          <div id="coin-price-list">
-            {% for coin in ['BTC','ETH','XRP','SOL','ADA','DOGE','DOT','AVAX','MATIC','LINK'] %}
-              <div class="coin-card">
-                <strong>{{ coin }}:</strong>
-                <span id="price-{{ coin.lower() }}">-</span>
-              </div>
-            {% endfor %}
-          </div>
-        </div>
-        </div>
-        
-        {% endif %}
-        <div class="video-grid" id="videoGrid">
-            {% for video in videos[1:] %}
-            <div class="video" data-title="{{ video.title }}" onclick="openModal('{{ video.video_id }}')">
-                <img src="{{ video.thumbnail }}" alt="{{ video.title }}">
-                <div class="video-title">{{ video.title }}</div>
-                {% if video.tags %}
-                <div class="video-tags">
-                    {% for tag in video.tags %}
-                    <span class="tag">{{ tag }}</span>
-                    {% endfor %}
+<meta name="google-site-verification" content="ud4-KqdV-GXBzQBaBdF_7qQYl4czDf1rWXN3rz0iOJY" />
+
+<style>
+        .funb-search-container {
+            width: 100%;
+            max-width: 600px;
+            .funb-search-wrapper {
+display: flex;
+            justify-content: flex-end;
+            justify-content: center;
+margin-top: -10px;
+margin-bottom: 12px;
+}
+        .funb-search-container input {
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            margin-left: 6px;
+        .funb-search-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            max-width: 600px;
+            width: 100%;
+}
+.funb-search-container button {
+background-color: var(--mint-dark);
+@@ -367,12 +368,14 @@
+<div class="popular-section">
+<div class="popular-label">현재 가장 인기 영상</div>
+<!-- ✅ 추가: 검색창 오른쪽 정렬 -->
+            <div class="funb-search-container">
+                <label for="funb-search">🔍 현재 펀비 검색:</label>
+                <input type="text" id="funb-search" placeholder="예: BTC, ETH, HFT">
+                <button onclick="searchFunb()">검색</button>
+            <div class="funb-search-wrapper">
+                <div class="funb-search-container">
+                    <label for="funb-search">🔍 현재 펀비 검색:</label>
+                    <input type="text" id="funb-search" placeholder="예: BTC, ETH, HFT">
+                    <button onclick="searchFunb()">검색</button>
                 </div>
-                {% endif %}
-            </div>
-            {% endfor %}
-        </div>
-        <div class="subscribe-box">
-            <div style="margin-bottom:8px; font-weight:500; color:var(--mint-dark);">유튜브 채널 구독하기</div>
-            <a class="subscribe-direct" href="https://www.youtube.com/channel/UCdhQfBQJYAZ3CGqEj0BGksQ?sub_confirmation=1" target="_blank" rel="noopener">구독하기</a>
-        </div>
-    </main>
-
-
-
-
-    
-    <div id="modal" class="modal" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <iframe id="ytplayer" src="" frameborder="0" allowfullscreen></iframe>
-        </div>
-    </div>
-    <footer>
-        <div class="footer-company"> 1분코인연구소</div>
-        <div class="footer-info">
-            대표: David Sujin Choo | <br>
-            서울특별시 강남구 테헤란도 211  <br>
-            문의: 1mincoinlab@gmail.com | 초기단계라 이메일 문의 요청. 
-        </div>
-        <div style="margin-top:8px; font-size:0.9em; opacity:0.7;">&copy; 2024 1minCoinLab. All rights reserved.</div>
-    </footer>
-    
-</body>
-<script src="{{ url_for('static', filename='script.js') }}"></script>
-</html> 
+</div>
+        <div id="funb-result"></div>
+            <div id="funb-result"></div>
+<div class="popular-card" onclick="openModal('{{ videos[0].video_id }}')">
+<img src="{{ videos[0].thumbnail }}" alt="{{ videos[0].title }}">
+<div class="popular-title">{{ videos[0].title }}</div>
