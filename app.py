@@ -6,6 +6,7 @@ import json
 from flask import Flask, render_template, jsonify
 from dotenv import load_dotenv
 from visit_counter import get_today_count
+import threading
 from ping_wakeup import start_ping_thread
 
 # 로컬 개발 시 .env 파일 로딩
