@@ -1,29 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
   loadCoinPrices();
+  setupVideoSearch();
 });
 
 function openModal(videoId) {
   document.getElementById('ytplayer').src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1';
   document.getElementById('modal').classList.add('active');
+  document.getElementById('modal').scrollIntoView({ behavior: 'smooth' });
 }
 
 function closeModal() {
   document.getElementById('ytplayer').src = '';
   document.getElementById('modal').classList.remove('active');
 }
-function searchFunb() {
-  const coin = document.getElementById('funb-search').value.trim().toUpperCase();
-  const resultEl = document.getElementById('funb-result');
 
-  fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${coin}USDT`)
-    .then(res => res.json())
-    .then(data => {
-      resultEl.innerText = `${coin} 현재 가격: ${parseFloat(data.price).toFixed(4)} USDT`;
-    })
-    .catch(() => {
-      resultEl.innerText = '해당 코인을 찾을 수 없습니다.';
-    });
-}
 async function searchFunb() {
   const coin = document.getElementById('funb-search').value.trim().toUpperCase();
   const resultEl = document.getElementById('funb-result');
@@ -41,7 +31,7 @@ async function searchFunb() {
   } catch {
     resultEl.innerText = '조회 중 오류가 발생했습니다.';
   }
-} 
+}
 
 async function loadCoinPrices() {
   const coins = ['BTC','ETH','XRP','SOL','ADA','DOGE','DOT','AVAX','MATIC','LINK'];
@@ -81,4 +71,40 @@ async function loadCoinPrices() {
       document.getElementById(`okx-${cl}`).innerText = 'ERR';
     }
   }
+}
+
+function setupVideoSearch() {
+  const input = document.getElementById('video-search');
+  const button = document.getElementById('video-search-btn');
+  const resultBox = document.getElementById('video-search-results');
+  const allVideos = Array.from(document.querySelectorAll('.video'));
+
+  function filterAndShowResults() {
+    const keyword = input.value.trim().toLowerCase();
+    resultBox.innerHTML = '';
+    if (!keyword) return;
+
+    const matches = allVideos.filter(v => {
+      const title = v.querySelector('.video-title')?.textContent.toLowerCase() || '';
+      return title.includes(keyword);
+    });
+
+    matches.forEach(video => {
+      const videoId = video.getAttribute('data-video-id');
+      const thumbnail = video.querySelector('img')?.src || '';
+      const title = video.querySelector('.video-title')?.textContent || '';
+
+      const thumb = document.createElement('img');
+      thumb.src = thumbnail;
+      thumb.alt = title;
+      thumb.style.width = '120px';
+      thumb.style.margin = '6px';
+      thumb.style.cursor = 'pointer';
+      thumb.title = title;
+      thumb.onclick = () => openModal(videoId);
+      resultBox.appendChild(thumb);
+    });
+  }
+
+  if (button) button.addEventListener('click', filterAndShowResults);
 }
