@@ -1,5 +1,49 @@
 
 <style>
+  .top-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto 32px auto;
+  }
+  
+  .popular-left {
+      flex: 2;
+      min-width: 300px;
+  }
+  
+  .coin-box {
+      flex: 1;
+      min-width: 240px;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 18px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      font-size: 1rem;
+  }
+  
+  .coin-box h3 {
+      font-size: 1.15rem;
+      color: var(--mint-dark);
+      margin-bottom: 16px;
+  }
+  
+  .coin-card {
+      background: #f5fefe;
+      border: 1px solid #d9f4f0;
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 10px;
+      font-size: 0.97rem;
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+  }
+
   .funb-search-wrapper {
         display: flex;
         justify-content: center;
