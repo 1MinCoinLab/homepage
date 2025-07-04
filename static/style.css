@@ -1,28 +1,157 @@
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  margin: 0;
+  background: #f8fafd;
+  color: #222;
 }
 
-.coin-card {
-      background: #f5fefe;
-      border: 1px solid #d9f4f0;
-      border-radius: 12px;
-      padding: 10px 14px;
-      margin-bottom: 10px;
-      font-size: 0.97rem;
-      display: flex;
-      justify-content: space-between;
-      font-weight: 600;
-    background: #f5fefe;
-    border: 1px solid #d9f4f0;
-    border-radius: 12px;
-    padding: 10px 14px;
-    margin-bottom: 10px;
-    font-size: 0.92rem;
-    display: flex;
-    justify-content: space-between;
-    font-weight: 600;
-    white-space: pre-wrap;
+header {
+  background: #3de1c9;
+  padding: 20px;
+  text-align: center;
 }
 
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+}
 
-.funb-search-wrapper {
-display: flex;
-justify-content: center;
+.subtitle {
+  color: #e0fff8;
+  margin-top: 6px;
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.top-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.popular-left {
+  flex: 2;
+  min-width: 300px;
+}
+
+.popular-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.popular-card:hover {
+  transform: scale(1.03);
+}
+.popular-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+.popular-title {
+  margin-top: 12px;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.popular-tags {
+  margin-top: 8px;
+}
+.popular-tag {
+  background: #2bb3a3;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  margin-right: 6px;
+}
+
+.coin-box {
+  flex: 1;
+  min-width: 280px;
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+.coin-box h3 {
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+  color: #2bb3a3;
+}
+.coin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.coin-table th, .coin-table td {
+  border: 1px solid #d2f2ec;
+  padding: 6px 8px;
+  text-align: center;
+}
+.coin-table th {
+  background: #f0fffd;
+  color: #2bb3a3;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+.video {
+  background: white;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  cursor: pointer;
+}
+.video img {
+  width: 100%;
+  border-radius: 6px;
+}
+.video-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-top: 8px;
+}
+.video-tags {
+  margin-top: 6px;
+}
+.tag {
+  display: inline-block;
+  background: #2bb3a3;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  margin: 2px 4px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.modal.active {
+  display: flex;
+}
+.modal-content iframe {
+  width: 90vw;
+  max-width: 560px;
+  height: 315px;
+  border: none;
+  border-radius: 10px;
+  background: white;
+}
