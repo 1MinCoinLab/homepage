@@ -53,25 +53,20 @@
             </div>
           </div>
         
-          <!-- 오른쪽: 코인 가격 -->
-          <div class="coin-box">
-            <h3>🔥 실시간 코인 시세 (KRW)</h3>
-            <div class="coin-card">
-              <strong>BTC:</strong> <span id="price-btc">-</span> 원
-            </div>
-            <div class="coin-card">
-              <strong>ETH:</strong> <span id="price-eth">-</span> 원
-            </div>
-            <div class="coin-card">
-              <strong>FANC:</strong> <span id="price-fanc">-</span> 원
-            </div>
+        <!-- 오른쪽: 코인 가격 -->
+        <div class="coin-box">
+          <h3>🔥 실시간 코인 시세 (KRW / USDT)</h3>
+          <div id="coin-price-list">
+            {% for coin in ['BTC','ETH','XRP','SOL','ADA','DOGE','DOT','AVAX','MATIC','LINK'] %}
+              <div class="coin-card">
+                <strong>{{ coin }}:</strong>
+                <span id="price-{{ coin.lower() }}">-</span>
+              </div>
+            {% endfor %}
           </div>
         </div>
-
-               
-             
-            </div>
         </div>
+        
         {% endif %}
         <div class="video-grid" id="videoGrid">
             {% for video in videos[1:] %}
