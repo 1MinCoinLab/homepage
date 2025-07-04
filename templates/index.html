@@ -1,49 +1,81 @@
-<meta name="google-site-verification" content="ud4-KqdV-GXBzQBaBdF_7qQYl4czDf1rWXN3rz0iOJY" />
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>1분 코인 연구소</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <div class="logo">1분 코인 연구소</div>
+    <div class="subtitle">쉽고 빠른 코인 정보</div>
+  </header>
 
-<style>
-        .funb-search-container {
-            width: 100%;
-            max-width: 600px;
-            .funb-search-wrapper {
-display: flex;
-            justify-content: flex-end;
-            justify-content: center;
-margin-top: -10px;
-margin-bottom: 12px;
-}
-        .funb-search-container input {
-            padding: 6px 12px;
-            border-radius: 20px;
-            border: 1px solid #ccc;
-            margin-left: 6px;
-        .funb-search-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 6px;
-            max-width: 600px;
-            width: 100%;
-}
-.funb-search-container button {
-background-color: var(--mint-dark);
-@@ -367,12 +368,14 @@
-<div class="popular-section">
-<div class="popular-label">현재 가장 인기 영상</div>
-<!-- ✅ 추가: 검색창 오른쪽 정렬 -->
-            <div class="funb-search-container">
-                <label for="funb-search">🔍 현재 펀비 검색:</label>
-                <input type="text" id="funb-search" placeholder="예: BTC, ETH, HFT">
-                <button onclick="searchFunb()">검색</button>
-            <div class="funb-search-wrapper">
-                <div class="funb-search-container">
-                    <label for="funb-search">🔍 현재 펀비 검색:</label>
-                    <input type="text" id="funb-search" placeholder="예: BTC, ETH, HFT">
-                    <button onclick="searchFunb()">검색</button>
-                </div>
-</div>
-        <div id="funb-result"></div>
-            <div id="funb-result"></div>
-<div class="popular-card" onclick="openModal('{{ videos[0].video_id }}')">
-<img src="{{ videos[0].thumbnail }}" alt="{{ videos[0].title }}">
-<div class="popular-title">{{ videos[0].title }}</div>
+  <main>
+    <section class="top-wrapper">
+      <!-- 인기 영상 영역 -->
+      <div class="popular-left">
+        <div class="popular-label">현재 가장 인기 영상</div>
+        <div class="popular-card" onclick="openModal('{{ videos[0].video_id }}')">
+          <img src="{{ videos[0].thumbnail }}" alt="{{ videos[0].title }}">
+          <div class="popular-title">{{ videos[0].title }}</div>
+          {% if videos[0].tags %}
+          <div class="popular-tags">
+            {% for tag in videos[0].tags %}<span class="popular-tag">{{ tag }}</span>{% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- 코인 시세 영역 -->
+      <div class="coin-box">
+        <h3>실시간 코인 시세</h3>
+        <table class="coin-table">
+          <thead>
+            <tr>
+              <th>코인</th>
+              <th>빗썸 (KRW)</th>
+              <th>바이낸스 (USDT)</th>
+              <th>OKX (USDT)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for coin in ['BTC','ETH','XRP','SOL','ADA','DOGE','DOT','AVAX','MATIC','LINK'] %}
+            <tr>
+              <td><strong>{{ coin }}</strong></td>
+              <td id="bithumb-{{ coin.lower() }}">-</td>
+              <td id="binance-{{ coin.lower() }}">-</td>
+              <td id="okx-{{ coin.lower() }}">-</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 나머지 영상 목록 -->
+    <section class="video-grid">
+      {% for video in videos[1:] %}
+      <div class="video" onclick="openModal('{{ video.video_id }}')">
+        <img src="{{ video.thumbnail }}" alt="{{ video.title }}">
+        <div class="video-title">{{ video.title }}</div>
+        {% if video.tags %}
+        <div class="video-tags">
+          {% for tag in video.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </section>
+  </main>
+
+  <div id="modal" class="modal" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <iframe id="ytplayer" src="" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
