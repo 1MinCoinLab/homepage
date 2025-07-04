@@ -11,7 +11,7 @@ from visit_counter import get_today_count
 # 로컬 개발 시 .env 파일 로딩
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', template_folder='templates')
 
 # 환경변수에서 API 키와 채널 ID 불러오기
 API_KEY = os.getenv('API_KEY')
