@@ -10,6 +10,34 @@ header {
   padding: 20px;
   text-align: center;
 }
+.funb-search-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
+}
+.funb-search-container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.funb-search-container input {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+}
+.funb-search-container button {
+  background-color: #2bb3a3;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+#funb-result {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.95rem;
+}
 
 .logo {
   font-size: 2rem;
