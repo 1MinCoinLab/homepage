@@ -6,8 +6,7 @@ import json
 from flask import Flask, render_template, jsonify
 from dotenv import load_dotenv
 from visit_counter import get_today_count
-import threading
-from ping_wakeup import start_ping_thread
+
 
 # 로컬 개발 시 .env 파일 로딩
 load_dotenv()
@@ -84,5 +83,5 @@ def sitemap_xml():
 
 # 앱 실행
 if __name__ == '__main__':
-    start_ping_thread()  # ping 스레드 시작
+    
     app.run(host='0.0.0.0', port=5001, debug=True)
