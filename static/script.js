@@ -68,7 +68,8 @@
         }
     }
     
-    window.onload = loadCoinPrices;
+    document.addEventListener('DOMContentLoaded', loadCoinPrices);
+
 
 
 
