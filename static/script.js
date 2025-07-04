@@ -11,6 +11,19 @@ function closeModal() {
   document.getElementById('ytplayer').src = '';
   document.getElementById('modal').classList.remove('active');
 }
+function searchFunb() {
+  const coin = document.getElementById('funb-search').value.trim().toUpperCase();
+  const resultEl = document.getElementById('funb-result');
+
+  fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${coin}USDT`)
+    .then(res => res.json())
+    .then(data => {
+      resultEl.innerText = `${coin} 현재 가격: ${parseFloat(data.price).toFixed(4)} USDT`;
+    })
+    .catch(() => {
+      resultEl.innerText = '해당 코인을 찾을 수 없습니다.';
+    });
+}
 
 async function loadCoinPrices() {
   const coins = ['BTC','ETH','XRP','SOL','ADA','DOGE','DOT','AVAX','MATIC','LINK'];
