@@ -79,7 +79,8 @@
     <!-- 나머지 영상 목록 -->
     <section class="video-grid">
       {% for video in videos[1:] %}
-      <div class="video" onclick="openModal('{{ video.video_id }}')">
+      <div class="video" data-video-id="{{ video.video_id }}" onclick="openModal('{{ video.video_id }}')">
+
         <img src="{{ video.thumbnail }}" alt="{{ video.title }}">
         <div class="video-title">{{ video.title }}</div>
         {% if video.tags %}
