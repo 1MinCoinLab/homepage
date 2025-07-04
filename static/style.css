@@ -1,5 +1,33 @@
 
 <style>
+  .coin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    font-size: 0.95rem;
+  }
+  
+  .coin-table th,
+  .coin-table td {
+      border: 1px solid #d2f2ec;
+      padding: 8px 12px;
+      text-align: center;
+  }
+  
+  .coin-table th {
+      background-color: #f0fffd;
+      color: var(--mint-dark);
+      font-weight: 600;
+  }
+  
+  .coin-table td {
+      background-color: #fcfefe;
+      color: #222;
+  }
+
+
+
+
   .top-wrapper {
       display: flex;
       justify-content: space-between;
