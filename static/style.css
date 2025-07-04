@@ -16,7 +16,7 @@ header {
 }
 .subscribe-direct {
   display: inline-block;
-  background: var(--mint-dark);
+  background: var(--mint-dark); /* ✅ 기본 배경 추가 */
   color: white;
   padding: 10px 24px;
   border-radius: 20px;
@@ -28,7 +28,6 @@ header {
 .subscribe-direct:hover {
   background: #1e8c7a;
 }
-
 
 
 
