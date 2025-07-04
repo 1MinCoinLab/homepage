@@ -10,6 +10,19 @@ header {
   padding: 20px;
   text-align: center;
 }
+.video-search-wrapper {
+  text-align: center;
+  margin-bottom: 24px;
+}
+#video-search {
+  width: 80%;
+  max-width: 400px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
 .funb-search-wrapper {
   display: flex;
   justify-content: center;
