@@ -24,6 +24,24 @@ function searchFunb() {
       resultEl.innerText = '해당 코인을 찾을 수 없습니다.';
     });
 }
+async function searchFunb() {
+  const coin = document.getElementById('funb-search').value.trim().toUpperCase();
+  const resultEl = document.getElementById('funb-result');
+
+  try {
+    const res = await fetch(`https://fapi.binance.com/fapi/v1/fundingRate?symbol=${coin}USDT&limit=1`);
+    const data = await res.json();
+    if (data.length > 0) {
+      const fundingRate = parseFloat(data[0].fundingRate) * 100;
+      const time = new Date(data[0].fundingTime).toLocaleString();
+      resultEl.innerText = `${coin} 펀딩비율: ${fundingRate.toFixed(4)}% (기준시각: ${time})`;
+    } else {
+      resultEl.innerText = '펀딩비 데이터를 찾을 수 없습니다.';
+    }
+  } catch {
+    resultEl.innerText = '조회 중 오류가 발생했습니다.';
+  }
+} 
 
 async function loadCoinPrices() {
   const coins = ['BTC','ETH','XRP','SOL','ADA','DOGE','DOT','AVAX','MATIC','LINK'];
