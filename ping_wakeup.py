@@ -9,7 +9,7 @@ def periodic_ping():
     while True:
         try:
             print("[PING] 서버에 주기적으로 요청을 보냅니다...")
-            requests.get('http://127.0.0.1:5001/')  # 배포 시엔 도메인으로 변경
+            requests.get('https://onemincoinlab.onrender.com/')  # 배포 시엔 도메인으로 변경
         except Exception as e:
             print("[PING 오류]", e)
         time.sleep(600)  # 600초 = 10분
