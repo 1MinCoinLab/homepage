@@ -13,7 +13,7 @@ header {
 .funb-search-wrapper {
   display: flex;
   justify-content: center;
-  margin: 16px 0;
+  margin: 20px 0;
 }
 .funb-search-container {
   display: flex;
@@ -37,7 +37,9 @@ header {
   text-align: center;
   margin-top: 10px;
   font-size: 0.95rem;
+  color: #222;
 }
+
 
 .logo {
   font-size: 2rem;
