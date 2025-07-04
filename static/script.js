@@ -35,47 +35,41 @@
     }
 
     async function loadCoinPrices() {
-        const coins = ['BTC', 'ETH', 'XRP', 'SOL', 'ADA', 'DOGE', 'DOT', 'AVAX', 'MATIC', 'LINK'];
+        const coins = ['BTC','ETH','XRP','SOL','ADA','DOGE','DOT','AVAX','MATIC','LINK'];
     
         for (const coin of coins) {
-            let priceText = '';
+            const cl = coin.toLowerCase();
     
-            // 1. 빗썸 KRW
+            // 빗썸
             try {
                 const res = await fetch(`https://api.bithumb.com/public/ticker/${coin}_KRW`);
                 const data = await res.json();
                 if (data.status === '0000') {
-                    priceText += `빗썸: ${parseInt(data.data.closing_price).toLocaleString()}원 `;
+                    document.getElementById(`bithumb-${cl}`).innerText =
+                        parseInt(data.data.closing_price).toLocaleString();
                 }
-            } catch (e) {}
+            } catch { document.getElementById(`bithumb-${cl}`).innerText = '-'; }
     
-            // 2. 바이낸스 USDT
+            // 바이낸스
             try {
                 const res = await fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${coin}USDT`);
                 const data = await res.json();
-                const usdt = parseFloat(data.price);
-                if (!isNaN(usdt)) {
-                    priceText += `| 바이낸스: ${usdt.toLocaleString()} USDT `;
-                }
-            } catch (e) {}
+                document.getElementById(`binance-${cl}`).innerText =
+                    parseFloat(data.price).toFixed(2);
+            } catch { document.getElementById(`binance-${cl}`).innerText = '-'; }
     
-            // 3. OKX USDT
+            // OKX
             try {
                 const res = await fetch(`https://www.okx.com/api/v5/market/ticker?instId=${coin}-USDT`);
-                const okx = await res.json();
-                const okxPrice = parseFloat(okx.data?.[0]?.last);
-                if (!isNaN(okxPrice)) {
-                    priceText += `| OKX: ${okxPrice.toLocaleString()} USDT`;
-                }
-            } catch (e) {}
-    
-            // 출력
-            const el = document.getElementById(`price-${coin.toLowerCase()}`);
-            el.innerText = priceText || '데이터 없음';
+                const data = await res.json();
+                document.getElementById(`okx-${cl}`).innerText =
+                    parseFloat(data.data?.[0]?.last).toFixed(2);
+            } catch { document.getElementById(`okx-${cl}`).innerText = '-'; }
         }
     }
-
+    
     window.onload = loadCoinPrices;
+
 
 
 </script>
