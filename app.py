@@ -59,7 +59,7 @@ def index():
 #방문자 카운트.
 @app.route('/')
 def index():
-    update_videos_json_and_wait()
+   # update_videos_json_and_wait()
     videos = load_videos()
     today_visits = get_today_count()  # 방문자 수 카운트
     return render_template('index.html', videos=videos, today_visits=today_visits)
