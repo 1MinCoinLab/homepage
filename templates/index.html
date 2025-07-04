@@ -56,16 +56,28 @@
         <!-- 오른쪽: 코인 가격 -->
         <div class="coin-box">
           <h3>🔥 실시간 코인 시세 (KRW / USDT)</h3>
-          <div id="coin-price-list">
-            {% for coin in ['BTC','ETH','XRP','SOL','ADA','DOGE','DOT','AVAX','MATIC','LINK'] %}
-              <div class="coin-card">
-                <strong>{{ coin }}:</strong>
-                <span id="price-{{ coin.lower() }}">-</span>
-              </div>
-            {% endfor %}
-          </div>
+          <table class="coin-table">
+            <thead>
+              <tr>
+                <th>코인</th>
+                <th>빗썸 (KRW)</th>
+                <th>바이낸스 (USDT)</th>
+                <th>OKX (USDT)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for coin in ['BTC','ETH','XRP','SOL','ADA','DOGE','DOT','AVAX','MATIC','LINK'] %}
+              <tr>
+                <td><strong>{{ coin }}</strong></td>
+                <td id="bithumb-{{ coin.lower() }}">-</td>
+                <td id="binance-{{ coin.lower() }}">-</td>
+                <td id="okx-{{ coin.lower() }}">-</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
-        </div>
+
         
         {% endif %}
         <div class="video-grid" id="videoGrid">
