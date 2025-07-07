@@ -13,34 +13,33 @@
   </header>
 
   <main>
+    <!-- ✅ 기존 검색창 코드 유지 -->
     <div class="video-search-wrapper">
       <input type="text" id="video-search" placeholder="영상 제목 검색..." />
       <button id="video-search-btn">검색</button>
     </div>
-    
+
     <div id="video-search-results" class="video-search-results"></div>
 
-
-    <!-- 🔍 펀비 검색창 (헤더 아래 main 위쪽에 삽입 추천) -->
-    <div class="search-wrapper">
+    <!-- ✅ 새롭게 스타일 통일된 검색창 구조로 대체 -->
+    <!-- 기존 펀딩비 검색창 유지 -->
+    <div class="search-wrapper"> <!-- ✅ 검색창 스타일 통일 wrapper -->
       <label for="funb-search">🔍 펀딩비 검색:</label>
       <input type="text" id="funb-search" class="search-input" placeholder="예: BTC, ETH, XRP">
       <button id="funb-search-btn" class="search-btn" onclick="searchFunb()">검색</button>
     </div>   
     <div id="funb-result"></div>
-  
-    <!-- ✅ 구독 버튼 (여기 추가) -->
+
+    <!-- ✅ 구독 버튼 -->
     <div class="subscribe-box">
       <div style="margin-bottom:8px; font-weight:500; color:var(--mint-dark);">
-      📺 유튜브 채널 구독하기
+        📺 유튜브 채널 구독하기
       </div>
-    
       <a class="subscribe-direct" href="https://www.youtube.com/channel/UCdhQfBQJYAZ3CGqEj0BGksQ?sub_confirmation=1" target="_blank" rel="noopener">
-      구독하기
+        구독하기
       </a>
     </div>
-      
- 
+
     <section class="top-wrapper">
       <!-- 인기 영상 영역 -->
       <div class="popular-left">
@@ -86,7 +85,6 @@
     <section class="video-grid">
       {% for video in videos[1:] %}
       <div class="video" data-video-id="{{ video.video_id }}" onclick="openModal('{{ video.video_id }}')">
-
         <img src="{{ video.thumbnail }}" alt="{{ video.title }}">
         <div class="video-title">{{ video.title }}</div>
         {% if video.tags %}
