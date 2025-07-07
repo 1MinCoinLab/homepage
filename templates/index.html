@@ -21,28 +21,26 @@
     <div id="video-search-results" class="video-search-results"></div>
 
 
-        <!-- 🔍 펀비 검색창 (헤더 아래 main 위쪽에 삽입 추천) -->
-    <div class="funb-search-wrapper">
-      <div class="funb-search-container">
-        <label for="funb-search">🔍 펀딩비 검색:</label>
-        <input type="text" id="funb-search" placeholder="예: BTC, ETH, XRP">
-        <button onclick="searchFunb()">검색</button>
-      </div>
-    </div>
+    <!-- 🔍 펀비 검색창 (헤더 아래 main 위쪽에 삽입 추천) -->
+    <div class="search-wrapper">
+      <label for="funb-search">🔍 펀딩비 검색:</label>
+      <input type="text" id="funb-search" class="search-input" placeholder="예: BTC, ETH, XRP">
+      <button id="funb-search-btn" class="search-btn" onclick="searchFunb()">검색</button>
+    </div>   
     <div id="funb-result"></div>
-  <!-- ✅ 여기 추가 -->
-  <div class="subscribe-box">
-    <div style="margin-bottom:8px; font-weight:500; color:var(--mint-dark);">
+  
+    <!-- ✅ 구독 버튼 (여기 추가) -->
+    <div class="subscribe-box">
+      <div style="margin-bottom:8px; font-weight:500; color:var(--mint-dark);">
       📺 유튜브 채널 구독하기
-    </div>
-    <a class="subscribe-direct" href="https://www.youtube.com/channel/UCdhQfBQJYAZ3CGqEj0BGksQ?sub_confirmation=1" target="_blank" rel="noopener">
+      </div>
+    
+      <a class="subscribe-direct" href="https://www.youtube.com/channel/UCdhQfBQJYAZ3CGqEj0BGksQ?sub_confirmation=1" target="_blank" rel="noopener">
       구독하기
-    </a>
-  </div>
+      </a>
+    </div>
       
  
-  
-
     <section class="top-wrapper">
       <!-- 인기 영상 영역 -->
       <div class="popular-left">
