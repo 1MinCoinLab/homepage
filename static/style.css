@@ -32,6 +32,7 @@ header {
   background: #1e8c7a;
 }
 
+/* ✅ 검색창 정렬 및 스타일 통합 */
 .search-wrapper {
   display: flex;
   justify-content: center;
@@ -57,7 +58,6 @@ header {
   border: none;
   cursor: pointer;
 }
-
 
 #funb-result {
   text-align: center;
