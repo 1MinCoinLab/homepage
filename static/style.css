@@ -32,15 +32,16 @@ header {
   background: #1e8c7a;
 }
 
-.video-search-wrapper {
+.search-wrapper {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 8px;
   margin: 16px 0;
+  flex-wrap: wrap;
 }
 
-#video-search,
-#funb-search {
+.search-input {
   width: 280px;
   padding: 8px 16px;
   border-radius: 20px;
@@ -48,7 +49,7 @@ header {
   font-size: 1rem;
 }
 
-#video-search-btn {
+.search-btn {
   padding: 8px 16px;
   border-radius: 20px;
   background: #2bb3a3;
@@ -57,39 +58,6 @@ header {
   cursor: pointer;
 }
 
-#video-search-results {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 16px;
-}
-
-.funb-search-wrapper {
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
-}
-
-.funb-search-container {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.funb-search-container input {
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-}
-
-.funb-search-container button {
-  background-color: #2bb3a3;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  padding: 6px 12px;
-  cursor: pointer;
-}
 
 #funb-result {
   text-align: center;
