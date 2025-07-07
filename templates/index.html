@@ -13,17 +13,9 @@
   </header>
 
   <main>
-
-    <!-- 🔁 기존 영상 검색창 주석 처리
-    <div class="video-search-wrapper">
-      <input type="text" id="video-search" placeholder="영상 제목 검색..." />
-      <button id="video-search-btn">검색</button>
-    </div>
-    -->
-
-    <!-- ✅ 영상 제목 검색창 - 스타일 통일 -->
+   <!-- ✅ 영상 제목 검색창 - 스타일 통일 -->
     <div class="search-wrapper">
-      <input type="text" id="video-search" class="search-input" placeholder="영상 제목 검색..." />
+      <input type="text" id="video-search" class="search-input" placeholder="쇼츠 영상 제목 검색" />
       <button id="video-search-btn" class="search-btn">검색</button>
     </div>
 
@@ -31,8 +23,7 @@
 
     <!-- ✅ 펀딩비 검색창 - 동일 스타일 구조 -->
     <div class="search-wrapper">
-      <label for="funb-search">🔍 펀딩비 검색:</label>
-      <input type="text" id="funb-search" class="search-input" placeholder="예: BTC, ETH, XRP">
+      <input type="text" id="funb-search" class="search-input" placeholder="펀딩 비율 검색: BTC, ETH, XRP">
       <button id="funb-search-btn" class="search-btn" onclick="searchFunb()">검색</button>
     </div>   
     <div id="funb-result"></div>
