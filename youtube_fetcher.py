@@ -5,6 +5,9 @@ import json
 import re
 import os
 from dotenv import load_dotenv
+from datetime import datetime, timedelta
+
+VIDEOS_JSON = 'videos.json'
 
 # .env 또는 Render 환경변수 로드
 load_dotenv()
@@ -20,6 +23,20 @@ YOUTUBE_VIDEOS_URL = 'https://www.googleapis.com/youtube/v3/videos'
 if not API_KEY or not CHANNEL_ID:
     print("❌ API_KEY 또는 CHANNEL_ID가 환경변수에 없습니다.")
     exit(1)
+
+# ✅ 1. 파일 존재 여부 + 수정 시간 체크
+
+def should_update_videos():
+    if not os.path.exists(VIDEOS_JSON):
+        return True  # 파일이 없으면 반드시 업데이트
+
+    modified_time = os.path.getmtime(VIDEOS_JSON)
+    last_modified = datetime.fromtimestamp(modified_time)
+    now = datetime.now()
+
+    # ✅ 2. 파일이 12시간 이상 오래됐으면 업데이트
+    return now - last_modified > timedelta(hours=12)
+
 
 def fetch_shorts():
     try:
@@ -77,5 +94,9 @@ def fetch_shorts():
     except Exception as e:
         print("❌ 유튜브 API 호출 중 오류:", e)
 
+
 if __name__ == '__main__':
-    fetch_shorts()
+    if should_update_videos():
+        fetch_shorts()
+    else:
+        print("⏳ videos.json은 최근에 업데이트되어 API 호출을 생략합니다.")
