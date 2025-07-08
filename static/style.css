@@ -11,6 +11,44 @@ header {
   text-align: center;
 }
 
+/* ✅ 방명록 부분, 오른쪽 하단, 모달 방식 */
+.guestbook-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--mint-dark);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  cursor: pointer;
+  z-index: 999;
+}
+.guestbook-box {
+  position: fixed;
+  bottom: 80px;
+  right: 24px;
+  width: 280px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  padding: 16px;
+  z-index: 999;
+}
+
+.guestbook-box textarea {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 8px;
+  resize: none;
+  font-size: 0.95rem;
+}
+
+
+
 .subscribe-box {
   margin: 20px auto;
   text-align: center;
@@ -28,8 +66,9 @@ header {
   transition: background 0.2s;
 }
 
+
 .subscribe-direct:hover {
-  background: #1e8c7a;
+  background: #00ab90;
 }
 
 /* ✅ 검색창 정렬 및 스타일 통합 */
