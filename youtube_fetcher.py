@@ -25,7 +25,6 @@ if not API_KEY or not CHANNEL_ID:
     exit(1)
 
 # ✅ 1. 파일 존재 여부 + 수정 시간 체크
-
 def should_update_videos():
     if not os.path.exists(VIDEOS_JSON):
         return True  # 파일이 없으면 반드시 업데이트
@@ -52,7 +51,7 @@ def fetch_shorts():
         resp.raise_for_status()
         data = resp.json()
         items = data.get('items', [])
-        video_ids = [item['id']['videoId'] for item in items]
+        video_ids = [item['id']['videoId'] for item in items if 'videoId' in item['id']]
 
         # 2. 각 영상의 조회수 가져오기
         view_counts = {}
@@ -69,6 +68,8 @@ def fetch_shorts():
         # 3. 영상 정보 구성
         videos = []
         for item in items:
+            if 'videoId' not in item['id']:
+                continue
             video_id = item['id']['videoId']
             title = item['snippet']['title']
             thumbnail = item['snippet']['thumbnails']['high']['url']
@@ -99,4 +100,6 @@ if __name__ == '__main__':
     if should_update_videos():
         fetch_shorts()
     else:
-        print("⏳ videos.json은 최근에 업데이트되어 API 호출을 생략합니다.")
+        modified_time = os.path.getmtime(VIDEOS_JSON)
+        last_modified = datetime.fromtimestamp(modified_time).strftime("%Y-%m-%d %H:%M:%S")
+        print(f"⏳ videos.json은 최근에 업데이트되어 API 호출을 생략합니다. (마지막 수정: {last_modified})")
