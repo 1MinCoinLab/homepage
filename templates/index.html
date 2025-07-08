@@ -116,5 +116,50 @@
   </div>
 
   <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script>
+  // ✅ 방명록 창 토글
+  function toggleGuestbook() {
+    const box = document.getElementById('guestbook');
+    box.style.display = box.style.display === 'none' ? 'block' : 'none';
+  }
+
+  // ✅ 방명록 제출
+  function submitGuestbook() {
+    const name = document.getElementById('guest-name').value.trim();
+    const message = document.getElementById('guest-message').value.trim();
+    if (!name || !message) return;
+
+    const entry = {
+      name,
+      message,
+      time: new Date().toLocaleString()
+    };
+
+    let entries = JSON.parse(localStorage.getItem('guestbook') || '[]');
+    entries.unshift(entry); // 최신이 위로
+    localStorage.setItem('guestbook', JSON.stringify(entries));
+
+    renderGuestbook();
+
+    document.getElementById('guest-name').value = '';
+    document.getElementById('guest-message').value = '';
+  }
+
+  // ✅ 방명록 출력
+  function renderGuestbook() {
+    const entries = JSON.parse(localStorage.getItem('guestbook') || '[]');
+    const list = document.getElementById('guestbook-list');
+    list.innerHTML = entries.slice(0, 5).map(e => `
+      <div style="margin-top:10px; font-size:0.9rem; border-top:1px solid #eee; padding-top:8px;">
+        <strong>${e.name}</strong> <span style="color:#888; font-size:0.8rem;">(${e.time})</span><br>
+        ${e.message}
+      </div>
+    `).join('');
+  }
+
+  // ✅ 페이지 로딩 시 방명록 내용 출력
+  document.addEventListener('DOMContentLoaded', renderGuestbook);
+</script>
+
 </body>
 </html>
