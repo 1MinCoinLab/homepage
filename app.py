@@ -56,6 +56,19 @@ def index():
     return render_template('index.html', videos=videos)
 '''
 
+# 네비게이션 보드 추가 함#
+@app.route('/board')
+def board():
+    return render_template('board.html', posts=posts)
+
+@app.route('/post', methods=['POST'])
+def post():
+    title = request.form['title']
+    content = request.form['content']
+    posts.append({'title': title, 'content': content})
+    return redirect(url_for('board'))
+
+
 #방문자 카운트.
 @app.route('/')
 def index():
