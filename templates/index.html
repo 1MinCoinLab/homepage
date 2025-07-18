@@ -7,10 +7,13 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <header>
-    <div class="logo">1분 코인 연구소</div>
-    <div class="subtitle">쉽고 빠른 코인 정보</div>
+  <header class="header">
+    <a href="/" class="logo-link">
+      <img src="{{ url_for('static', filename='1min_coin_watermark_under_1mb_transparent.png') }}" alt="1분 코인 로고" class="logo-img">
+      <span class="site-title">1분 코인 연구소</span>
+    </a>
   </header>
+
 
   <main>
     <!-- 플로팅 버튼 -->
