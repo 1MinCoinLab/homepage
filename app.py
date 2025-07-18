@@ -7,6 +7,8 @@ from flask import Flask, render_template, jsonify
 from dotenv import load_dotenv
 from visit_counter import get_today_count
 
+# 게시글 저장 리스트 선언
+posts = []
 
 # 로컬 개발 시 .env 파일 로딩
 load_dotenv()
@@ -55,6 +57,8 @@ def index():
     videos = load_videos()
     return render_template('index.html', videos=videos)
 '''
+
+
 
 # 네비게이션 보드 추가 함#
 @app.route('/board')
