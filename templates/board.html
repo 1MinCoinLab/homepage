@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>게시판 - 1분 코인 연구소</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="header">
+    <a href="/" class="logo-link">
+      <img src="{{ url_for('static', filename='1min_coin_watermark_under_1mb_transparent.png') }}" class="logo-img">
+      <span class="site-title">1분 코인 연구소</span>
+    </a>
+  </header>
+
+  <nav class="navbar">
+    <a href="/" class="nav-item">홈</a>
+    <a href="/board" class="nav-item">게시판</a>
+  </nav>
+
+  <main style="max-width: 800px; margin: 40px auto; padding: 0 16px;">
+    <h2>게시판</h2>
+    <form action="/post" method="post" style="margin-bottom: 24px;">
+      <input type="text" name="title" placeholder="제목" required style="width: 100%; padding: 8px; margin-bottom: 8px;">
+      <textarea name="content" placeholder="내용" required style="width: 100%; height: 120px; padding: 8px;"></textarea>
+      <button type="submit" style="margin-top: 8px;">등록</button>
+    </form>
+
+    {% for post in posts %}
+      <div style="border: 1px solid #ccc; padding: 12px; margin-bottom: 16px;">
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.content }}</p>
+      </div>
+    {% endfor %}
+  </main>
+</body>
+</html>
