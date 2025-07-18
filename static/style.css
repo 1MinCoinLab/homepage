@@ -13,8 +13,9 @@ header {
 /* ✅ 로고 부분 */
 .header {
   display: flex;
-  align-items: center;
-  padding: 12px 20px;
+  justify-content: center;  /* 수평 가운데 정렬 */
+  align-items: center;      /* 수직 정렬 */
+  padding: 16px;
   background-color: #ffffff;
   border-bottom: 1px solid #ddd;
 }
