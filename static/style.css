@@ -116,10 +116,11 @@ navbar {
 /* ✅ 검색창 정렬 및 스타일 통합 */
 .search-wrapper {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin: 16px 0;
+  justify-content: center;
   align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap; /* 버튼이 옆으로 붙도록 설정 */
+  margin: 16px 0;
 }
 
 .search-input {
