@@ -6,22 +6,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<nav class="navbar">
-  <a href="/board" class="nav-item">게시판</a>
-</nav>
+
 <body>
   <header class="header">
-    <a href="/" class="logo-link">
-      <img src="{{ url_for('static', filename='1min_coin_watermark_under_1mb_transparent.png') }}" alt="1분 코인 로고" class="logo-img">
-      <span class="site-title">1분 코인 연구소</span>
-    </a>
+    <div class="main-container">
+      <nav class="navbar">
+        <a href="/board" class="nav-item">📋 게시판</a>
+        <a href="/" class="logo-link">
+          <img src="{{ url_for('static', filename='1min_coin_watermark_under_1mb_transparent.png') }}" alt="1분 코인 로고" class="logo-img">
+          <span class="site-title">1분 코인 연구소</span>
+        </a>
+      </nav>
+    </div>
   </header>
 
+  <main class="main-container">
 
-  <main>
-    <!-- ✅ 방명록 상단 고정 -->
+    <!-- ✅ 방명록 -->
     <section id="guestbook" class="guestbook-box">
-      <h2 style="margin-bottom: 12px;">✍ 방명록</h2>
+      <h2>✍ 방명록</h2>
       <form onsubmit="submitGuestbook(); return false;">
         <input type="text" id="guest-name" placeholder="이름" required class="search-input">
         <textarea id="guest-message" rows="3" placeholder="방명록 남겨주세요..." required class="search-input" style="margin-top:8px;"></textarea>
@@ -30,8 +33,7 @@
       <div id="guestbook-list" style="margin-top:1rem;"></div>
     </section>
 
-    
-   <!-- ✅ 영상 제목 검색창 - 스타일 통일 -->
+    <!-- ✅ 영상 제목 검색창 -->
     <div class="search-wrapper">
       <input type="text" id="video-search" class="search-input" placeholder="쇼츠 영상 제목 검색" />
       <button id="video-search-btn" class="search-btn">검색</button>
@@ -39,7 +41,7 @@
 
     <div id="video-search-results" class="video-search-results"></div>
 
-    <!-- ✅ 펀딩비 검색창 - 동일 스타일 구조 -->
+    <!-- ✅ 펀딩비 검색창 -->
     <div class="search-wrapper">
       <input type="text" id="funb-search" class="search-input" placeholder="펀딩 비율 검색: BTC, ETH, XRP">
       <button id="funb-search-btn" class="search-btn" onclick="searchFunb()">검색</button>
@@ -51,13 +53,13 @@
       <div style="margin-bottom:8px; font-weight:500; color:var(--mint-dark);">
         📺 유튜브 채널 구독하기
       </div>
-      <a class="subscribe-direct" href="https://www.youtube.com/channel/UCdhQfBQJYAZ3CGqEj0BGksQ?sub_confirmation=1" target="_blank" rel="noopener" background-color: yellow;>
+      <a class="subscribe-direct" href="https://www.youtube.com/channel/UCdhQfBQJYAZ3CGqEj0BGksQ?sub_confirmation=1" target="_blank" rel="noopener">
         구독하기
       </a>
     </div>
 
+    <!-- ✅ 인기 영상 + 코인 시세 -->
     <section class="top-wrapper">
-      <!-- 인기 영상 영역 -->
       <div class="popular-left">
         <div class="popular-label">현재 가장 인기 영상</div>
         <div class="popular-card" onclick="openModal('{{ videos[0].video_id }}')">
@@ -71,7 +73,6 @@
         </div>
       </div>
 
-      <!-- 코인 시세 영역 -->
       <div class="coin-box">
         <h3>실시간 코인 시세</h3>
         <table class="coin-table">
@@ -97,7 +98,7 @@
       </div>
     </section>
 
-    <!-- 나머지 영상 목록 -->
+    <!-- ✅ 영상 목록 -->
     <section class="video-grid">
       {% for video in videos[1:] %}
       <div class="video" data-video-id="{{ video.video_id }}" onclick="openModal('{{ video.video_id }}')">
@@ -121,49 +122,38 @@
 
   <script src="{{ url_for('static', filename='script.js') }}"></script>
   <script>
-  // ✅ 방명록 창 토글
-  function toggleGuestbook() {
-    const box = document.getElementById('guestbook');
-    box.style.display = box.style.display === 'none' ? 'block' : 'none';
-  }
+    document.addEventListener('DOMContentLoaded', renderGuestbook);
 
-  // ✅ 방명록 제출
-  function submitGuestbook() {
-    const name = document.getElementById('guest-name').value.trim();
-    const message = document.getElementById('guest-message').value.trim();
-    if (!name || !message) return;
+    function submitGuestbook() {
+      const name = document.getElementById('guest-name').value.trim();
+      const message = document.getElementById('guest-message').value.trim();
+      if (!name || !message) return;
 
-    const entry = {
-      name,
-      message,
-      time: new Date().toLocaleString()
-    };
+      const entry = {
+        name,
+        message,
+        time: new Date().toLocaleString()
+      };
 
-    let entries = JSON.parse(localStorage.getItem('guestbook') || '[]');
-    entries.unshift(entry); // 최신이 위로
-    localStorage.setItem('guestbook', JSON.stringify(entries));
+      let entries = JSON.parse(localStorage.getItem('guestbook') || '[]');
+      entries.unshift(entry);
+      localStorage.setItem('guestbook', JSON.stringify(entries));
+      renderGuestbook();
 
-    renderGuestbook();
+      document.getElementById('guest-name').value = '';
+      document.getElementById('guest-message').value = '';
+    }
 
-    document.getElementById('guest-name').value = '';
-    document.getElementById('guest-message').value = '';
-  }
-
-  // ✅ 방명록 출력
-  function renderGuestbook() {
-    const entries = JSON.parse(localStorage.getItem('guestbook') || '[]');
-    const list = document.getElementById('guestbook-list');
-    list.innerHTML = entries.slice(0, 5).map(e => `
-      <div style="margin-top:10px; font-size:0.9rem; border-top:1px solid #eee; padding-top:8px;">
-        <strong>${e.name}</strong> <span style="color:#888; font-size:0.8rem;">(${e.time})</span><br>
-        ${e.message}
-      </div>
-    `).join('');
-  }
-
-  // ✅ 페이지 로딩 시 방명록 내용 출력
-  document.addEventListener('DOMContentLoaded', renderGuestbook);
-</script>
-
+    function renderGuestbook() {
+      const entries = JSON.parse(localStorage.getItem('guestbook') || '[]');
+      const list = document.getElementById('guestbook-list');
+      list.innerHTML = entries.slice(0, 5).map(e => `
+        <div style="margin-top:10px; font-size:0.9rem; border-top:1px solid #eee; padding-top:8px;">
+          <strong>${e.name}</strong> <span style="color:#888; font-size:0.8rem;">(${e.time})</span><br>
+          ${e.message}
+        </div>
+      `).join('');
+    }
+  </script>
 </body>
 </html>
