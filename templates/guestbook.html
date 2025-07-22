@@ -1,0 +1,38 @@
+<!-- templates/guestbook.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>방명록 - 1분 코인 연구소</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="header">
+    <a href="/" class="logo-link">
+      <img src="{{ url_for('static', filename='1min_coin_watermark_under_1mb_transparent.png') }}" class="logo-img">
+      <span class="site-title">1분 코인 연구소</span>
+    </a>
+    <nav class="navbar">
+      <a href="/board" class="nav-item">📋 게시판</a>
+      <a href="/guestbook" class="nav-item">✍ 방명록</a>
+    </nav>
+  </header>
+
+  <main class="main-container">
+    <section class="guestbook-box">
+      <h2>✍ 방명록</h2>
+      <form onsubmit="submitGuestbook(); return false;">
+        <input type="text" id="guest-name" placeholder="이름" required class="search-input">
+        <textarea id="guest-message" rows="3" placeholder="방명록 남겨주세요..." required class="search-input" style="margin-top:8px;"></textarea>
+        <button type="submit" class="search-btn" style="margin-top: 8px;">남기기</button>
+      </form>
+      <div id="guestbook-list" style="margin-top:1rem;"></div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', renderGuestbook);
+  </script>
+</body>
+</html>
