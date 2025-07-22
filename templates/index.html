@@ -21,29 +21,8 @@
     </div>
   </header>
 
-
   <main class="main-container">
-     
-    <section class="form-wrapper">
-      <h2>📋 게시판</h2>
-      <form method="post">
-        <input type="text" name="title" placeholder="제목" required>
-        <textarea name="content" rows="6" placeholder="내용을 입력하세요..." required></textarea>
-        <button type="submit">등록</button>
-      </form>
-    </section>
-    
-        <!-- ✅ 영상 제목 검색창 -->
-    <div class="search-wrapper">
-      <input type="text" class="search-input" placeholder="쇼츠 영상 제목 검색" />
-      <button class="search-btn">검색</button>
-    </div>
-     <!-- ✅ 펀비 검색창 -->
-    <div class="search-wrapper">
-      <input type="text" class="search-input" placeholder="펀딩 비율 검색: BTC, ETH, XRP">
-      <button class="search-btn" onclick="searchFunb()">검색</button>
-    </div>
-    
+
     <!-- ✅ 구독 버튼 -->
     <div class="subscribe-box">
       <div style="margin-bottom:8px; font-weight:500; color:var(--mint-dark);">
@@ -110,6 +89,7 @@
     </section>
   </main>
 
+  <!-- ✅ 영상 모달 -->
   <div id="modal" class="modal" onclick="closeModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
       <iframe id="ytplayer" src="" frameborder="0" allowfullscreen></iframe>
@@ -117,39 +97,5 @@
   </div>
 
   <script src="{{ url_for('static', filename='script.js') }}"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', renderGuestbook);
-
-    function submitGuestbook() {
-      const name = document.getElementById('guest-name').value.trim();
-      const message = document.getElementById('guest-message').value.trim();
-      if (!name || !message) return;
-
-      const entry = {
-        name,
-        message,
-        time: new Date().toLocaleString()
-      };
-
-      let entries = JSON.parse(localStorage.getItem('guestbook') || '[]');
-      entries.unshift(entry);
-      localStorage.setItem('guestbook', JSON.stringify(entries));
-      renderGuestbook();
-
-      document.getElementById('guest-name').value = '';
-      document.getElementById('guest-message').value = '';
-    }
-
-    function renderGuestbook() {
-      const entries = JSON.parse(localStorage.getItem('guestbook') || '[]');
-      const list = document.getElementById('guestbook-list');
-      list.innerHTML = entries.slice(0, 5).map(e => `
-        <div style="margin-top:10px; font-size:0.9rem; border-top:1px solid #eee; padding-top:8px;">
-          <strong>${e.name}</strong> <span style="color:#888; font-size:0.8rem;">(${e.time})</span><br>
-          ${e.message}
-        </div>
-      `).join('');
-    }
-  </script>
 </body>
 </html>
