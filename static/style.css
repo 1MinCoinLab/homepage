@@ -65,43 +65,16 @@ header {
 
 
 
-/* ✅ 방명록 부분, 오른쪽 하단, 모달 방식 */
-.guestbook-toggle {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  background: var(--mint-dark);
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 20px;
-  font-weight: 600;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  cursor: pointer;
-  z-index: 999;
-}
+/* ✅ 방명록 위치 변경./
 .guestbook-box {
-  position: fixed;
-  bottom: 80px;
-  right: 24px;
-  width: 280px;
-  background: white;
+  max-width: 720px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #fdfdfd;
+  border: 1px solid #ddd;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  padding: 16px;
-  z-index: 999;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
-
-.guestbook-box textarea {
-  width: 100%;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  padding: 8px;
-  resize: none;
-  font-size: 0.95rem;
-}
-
-
 
 .subscribe-box {
   margin: 20px auto;
