@@ -10,6 +10,13 @@ header {
   padding: 20px;
   text-align: center;
 }
+
+.main-container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
 /* ✅ 로고 부분 */
 .header {
   display: flex;
@@ -63,9 +70,7 @@ header {
   color: #00a3c4;
 }
 
-
-
-/* ✅ 방명록 위치 변경./
+/* ✅ 방명록 위치 변경 */
 .guestbook-box {
   max-width: 720px;
   margin: 2rem auto;
@@ -74,6 +79,18 @@ header {
   border: 1px solid #ddd;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.guestbook-box input,
+.guestbook-box textarea {
+  margin-bottom: 8px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
 }
 
 .subscribe-box {
@@ -93,7 +110,6 @@ header {
   transition: background 0.2s;
 }
 
-
 .subscribe-direct:hover {
   background: #00ab90;
 }
@@ -101,11 +117,10 @@ header {
 /* ✅ 검색창 정렬 및 스타일 통합 */
 .search-wrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   gap: 8px;
   margin: 16px 0;
-  flex-wrap: wrap;
+  align-items: center;
 }
 
 .search-input {
