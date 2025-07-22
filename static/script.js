@@ -3,6 +3,42 @@ document.addEventListener('DOMContentLoaded', () => {
   setupVideoSearch();
 });
 
+// ✅ script.js 내부에 아래 함수 추가
+function submitGuestbook() {
+  const name = document.getElementById('guest-name').value.trim();
+  const message = document.getElementById('guest-message').value.trim();
+  if (!name || !message) return;
+
+  const entry = {
+    name,
+    message,
+    time: new Date().toLocaleString()
+  };
+
+  let entries = JSON.parse(localStorage.getItem('guestbook') || '[]');
+  entries.unshift(entry);
+  localStorage.setItem('guestbook', JSON.stringify(entries));
+
+  renderGuestbook();
+
+  document.getElementById('guest-name').value = '';
+  document.getElementById('guest-message').value = '';
+}
+
+function renderGuestbook() {
+  const entries = JSON.parse(localStorage.getItem('guestbook') || '[]');
+  const list = document.getElementById('guestbook-list');
+  list.innerHTML = entries.slice(0, 5).map(e => `
+    <div style="margin-top:10px; font-size:0.9rem; border-top:1px solid #eee; padding-top:8px;">
+      <strong>${e.name}</strong> <span style="color:#888; font-size:0.8rem;">(${e.time})</span><br>
+      ${e.message}
+    </div>
+  `).join('');
+}
+
+// ✅ 페이지 로딩 시 방명록 출력
+document.addEventListener('DOMContentLoaded', renderGuestbook);
+
 function openModal(videoId) {
   document.getElementById('ytplayer').src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1';
   document.getElementById('modal').classList.add('active');
