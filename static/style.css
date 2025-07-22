@@ -311,3 +311,47 @@ main {
   border-radius: 10px;
   background: white;
 }
+/* ✅ 통일된 입력 폼 스타일: 방명록 & 게시판 */
+.form-wrapper {
+  max-width: 720px;
+  margin: 2rem auto;
+  background: #fdfdfd;
+  border: 1px solid #ddd;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.form-wrapper h2 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.form-wrapper input[type="text"],
+.form-wrapper textarea {
+  width: 100%;
+  padding: 10px 16px;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.form-wrapper button {
+  background: #2bb3a3;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.form-wrapper button:hover {
+  background: #00a58f;
+}
+
