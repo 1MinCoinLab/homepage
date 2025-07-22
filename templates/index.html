@@ -12,6 +12,7 @@
     <div class="main-container">
       <nav class="navbar">
         <a href="/board" class="nav-item">📋 게시판</a>
+        <a href="/guestbook" class="nav-item">✍ 방명록</a>
         <a href="/" class="logo-link">
           <img src="{{ url_for('static', filename='1min_coin_watermark_under_1mb_transparent.png') }}" alt="1분 코인 로고" class="logo-img">
           <span class="site-title">1분 코인 연구소</span>
@@ -22,18 +23,7 @@
 
   <main class="main-container">
 
-    <!-- ✅ 방명록 -->
-    <section id="guestbook" class="guestbook-box">
-      <h2>✍ 방명록</h2>
-      <form onsubmit="submitGuestbook(); return false;">
-        <input type="text" id="guest-name" placeholder="이름" required class="search-input">
-        <textarea id="guest-message" rows="3" placeholder="방명록 남겨주세요..." required class="search-input" style="margin-top:8px;"></textarea>
-        <button type="submit" class="search-btn" style="margin-top: 8px;">남기기</button>
-      </form>
-      <div id="guestbook-list" style="margin-top:1rem;"></div>
-    </section>
-
-    <!-- ✅ 영상 제목 검색창 -->
+        <!-- ✅ 영상 제목 검색창 -->
     <div class="search-wrapper">
       <input type="text" id="video-search" class="search-input" placeholder="쇼츠 영상 제목 검색" />
       <button id="video-search-btn" class="search-btn">검색</button>
