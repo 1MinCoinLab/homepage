@@ -5,7 +5,9 @@ import time
 import json
 from flask import Flask, render_template, jsonify
 from dotenv import load_dotenv
-from visit_counter import get_today_count
+
+#방문자 카운트
+#from visit_counter import get_today_count
 
 # 게시글 저장 리스트 선언
 posts = []
@@ -77,15 +79,15 @@ def one_min_coin():
 
 
 
-'''
+
 #방문자 카운트.
 @app.route('/')
 def index():
     update_videos_json_and_wait()
     videos = load_videos()
-    today_visits = get_today_count()  # 방문자 수 카운트
+   #today_visits = get_today_count()  # 방문자 수 카운트
     return render_template('index.html', videos=videos, today_visits=today_visits)
-'''
+
 
 # API 엔드포인트
 @app.route('/api/videos')
