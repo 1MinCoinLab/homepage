@@ -51,7 +51,7 @@ def load_videos():
         return []
 
 
-
+'''
 # 네비게이션 보드 추가 함#
 @app.route('/board')
 def board():
@@ -68,8 +68,16 @@ def post():
 def guestbook():
     return render_template("guestbook.html")
 
+'''
+
+#1분 코인에 대한 설명 페이지 추가.
+@app.route("/1mincoin")
+def one_min_coin():
+    return render_template("1mincoin.html")
 
 
+
+'''
 #방문자 카운트.
 @app.route('/')
 def index():
@@ -77,6 +85,7 @@ def index():
     videos = load_videos()
     today_visits = get_today_count()  # 방문자 수 카운트
     return render_template('index.html', videos=videos, today_visits=today_visits)
+'''
 
 # API 엔드포인트
 @app.route('/api/videos')
