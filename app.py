@@ -6,9 +6,6 @@ import json
 from flask import Flask, render_template, jsonify
 from dotenv import load_dotenv
 
-#방문자 카운트
-#from visit_counter import get_today_count
-
 # 게시글 저장 리스트 선언
 posts = []
 
@@ -52,61 +49,34 @@ def load_videos():
         print("videos.json 로딩 중 오류:", e)
         return []
 
-
-'''
-# 네비게이션 보드 추가 함#
-@app.route('/board')
-def board():
-    return render_template('board.html', posts=posts)
-
-@app.route('/post', methods=['POST'])
-def post():
-    title = request.form['title']
-    content = request.form['content']
-    posts.append({'title': title, 'content': content})
-    return redirect(url_for('board'))
-
-@app.route("/guestbook")
-def guestbook():
-    return render_template("guestbook.html")
-
-'''
-
-#1분 코인에 대한 설명 페이지 추가.
+# ✅ 1분 코인에 대한 설명 페이지
 @app.route("/1mincoin")
 def one_min_coin():
     return render_template("1mincoin.html")
 
-
-
-
-#방문자 카운트.
+# ✅ 메인 페이지 (방문자 카운트 제거됨)
 @app.route('/')
 def index():
     update_videos_json_and_wait()
     videos = load_videos()
-   #today_visits = get_today_count()  # 방문자 수 카운트
-    return render_template('index.html', videos=videos, today_visits=today_visits)
+    return render_template('index.html', videos=videos)
 
-
-# API 엔드포인트
+# ✅ API 엔드포인트
 @app.route('/api/videos')
 def api_videos():
     update_videos_json_and_wait()
     return jsonify(load_videos())
 
-# robots.txt 서빙
+# ✅ robots.txt 서빙
 @app.route('/robots.txt')
 def robots_txt():
     return app.send_static_file('robots.txt')
 
-# sitemap.xml 서빙
+# ✅ sitemap.xml 서빙
 @app.route('/sitemap.xml')
 def sitemap_xml():
     return app.send_static_file('sitemap.xml')
 
-
-# 앱 실행
+# ✅ 앱 실행
 if __name__ == '__main__':
-    
     app.run(host='0.0.0.0', port=5001, debug=True)
